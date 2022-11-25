@@ -1,15 +1,17 @@
 
-function [histCountPiel, histCountFondo,xv,yv] = algo1()
-
+function [histCountPiel, histCountFondo,xv,yv] = algo1() %% Función que nos devuelve 
+    
+    %% Nos ponemos en el directorio de trabajo %%
     cd('C:\Users\gobbe\OneDrive\Escritorio\Cfis\4a\project_PIV');
     cd ('.\Images');
-
+    %% Creamos celdas para guardar imágenes originales, máscaras ideales y resultado de aplicar las máscaras a las imágenes %%
     list_images=dir('*.jpg');
     images = cell(1, length(list_images));
     images_b = cell(1, length(list_images));
     mask_file = cell (1,length(list_images));
-    bins = 256;
-
+    bins = 256; %% Haciendo pruebas este número de bins era el que nos daba mejor resultado %%
+    
+    %% Cargamos imágenes y las guardamos %%
     for i = 1 : length(list_images)
         image_file = imread(list_images(i).name);
         images{i}=image_file;
@@ -17,9 +19,11 @@ function [histCountPiel, histCountFondo,xv,yv] = algo1()
 
     cd ('..\Masks-Ideal');
     list_masks=dir('*.bmp');
-    total_pixels_piel = 0;
-    total_pixels_fondo = 0;
-
+    total_pixels_piel = 0; %% Contador para poder normalizar los histogramas de piel %%
+    total_pixels_fondo = 0; %% Contador para poder normalizar los histogramas del fondo %%
+    
+    %% Bucle principal que aplica las mascaras ideales a las imágenes. De esta forma tendremos imagenes del fondo y de piel separadas %%
+    %% Cambiamos de espacio de 
     for i = 1 : length(list_images)
 
         masks_file = imread(list_masks(i).name);
